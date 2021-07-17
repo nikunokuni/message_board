@@ -4,14 +4,14 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.protobuf.Message;
-
+import models.Message;
 import utils.DButil;
 
 /**
@@ -26,7 +26,7 @@ public class IndexServlet extends HttpServlet {
      */
     public IndexServlet() {
         super();
-        // TODO Auto-generated constructor stub
+
     }
 
 	/**
@@ -36,9 +36,13 @@ public class IndexServlet extends HttpServlet {
         EntityManager em = DButil.createEntityManager();
 
         List<Message> messages = em.createNamedQuery("getAllMessages", Message.class).getResultList();
-        response.getWriter().append(Integer.valueOf(messages.size()).toString());
 
         em.close();
+
+        request.setAttribute("messages",messages);
+
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/messages/index.jsp");
+        rd.forward(request,response);
     }
 
 }
