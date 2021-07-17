@@ -5,7 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class DButil {
-    private static final String PERSISTENCE_UNIT_NAME = "techacademy_orm";//使う時はここだけ変更する
+    private static final String PERSISTENCE_UNIT_NAME = "message_board";//使う時はここだけ変更する
     private static EntityManagerFactory emf;
 
     public static EntityManager createEntityManager() {
